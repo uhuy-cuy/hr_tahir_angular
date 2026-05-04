@@ -1,0 +1,75 @@
+<h2 mat-dialog-title class="text-lg font-semibold">
+    ➕ Tambah Karyawan
+</h2>
+
+<mat-dialog-content [formGroup]="form" class="flex flex-col gap-2 py-5">
+    <br>
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nama</mat-label>
+        <input matInput formControlName="nama">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>NIK</mat-label>
+        <input matInput formControlName="nik">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option value="aktif">🟢 Aktif</mat-option>
+            <mat-option value="non-aktif">🔴 Non-Aktif</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Jabatan</mat-label>
+        <input matInput formControlName="jabatan_display" [matAutocomplete]="autoJabatan"
+            #jabatanTrigger="matAutocompleteTrigger" (focus)="jabatanTrigger.openPanel(); jabatanFilter$.next('')"
+            (click)="jabatanTrigger.openPanel(); jabatanFilter$.next('')"
+            (input)="jabatanFilter$.next($event.target.value)" />
+
+        <mat-autocomplete #autoJabatan="matAutocomplete" [displayWith]="displayJabatan"
+            (optionSelected)="selectJabatan($event.option.value)">
+            <mat-option *ngFor="let j of filteredJabatan | async" [value]="j">
+                {{ j.nama_jabatan }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Departemen</mat-label>
+
+        <input matInput formControlName="departemen_display" [matAutocomplete]="autoDept"
+            #deptTrigger="matAutocompleteTrigger" (focus)="deptTrigger.openPanel(); departemenFilter$.next('')"
+            (click)="deptTrigger.openPanel(); departemenFilter$.next('')"
+            (input)="departemenFilter$.next($event.target.value)" />
+
+        <mat-autocomplete #autoDept="matAutocomplete" [displayWith]="displayDepartemen"
+            (optionSelected)="selectDepartemen($event.option.value)">
+            <mat-option *ngFor="let d of filteredDepartemen | async" [value]="d">
+                {{ d.nama_departemen }}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="px-6 pb-4 gap-2">
+
+    <button mat-button mat-dialog-close>Batal</button>
+
+    <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid || loading">
+
+        {{ loading ? 'Menyimpan...' : 'Simpan' }}
+
+    </button>
+
+</mat-dialog-actions>

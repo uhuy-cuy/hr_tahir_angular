@@ -1,0 +1,119 @@
+<h2 mat-dialog-title class="text-lg font-semibold">
+    ✏️ Edit Karyawan
+</h2>
+
+<mat-dialog-content [formGroup]="form" class="flex flex-col gap-4 py-4">
+
+    <!-- ========================= -->
+    <!-- NAMA -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Nama</mat-label>
+        <input matInput formControlName="nama">
+        @if(form.get('nama')?.invalid && form.get('nama')?.touched){
+        <mat-error>Nama wajib diisi</mat-error>
+        }
+    </mat-form-field>
+
+    <!-- ========================= -->
+    <!-- NIK -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>NIK</mat-label>
+        <input matInput formControlName="nik">
+        @if(form.get('nik')?.invalid && form.get('nik')?.touched){
+        <mat-error>NIK wajib diisi</mat-error>
+        }
+    </mat-form-field>
+
+    <!-- ========================= -->
+    <!-- EMAIL -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        @if(form.get('email')?.invalid && form.get('email')?.touched){
+        <mat-error>Email wajib diisi</mat-error>
+        }
+    </mat-form-field>
+
+    <!-- ========================= -->
+    <!-- STATUS -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option value="aktif">🟢 Aktif</mat-option>
+            <mat-option value="non-aktif">🔴 Non-Aktif</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- ========================= -->
+    <!-- PHONE -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+    </mat-form-field>
+
+    <!-- ========================= -->
+    <!-- JABATAN (AUTOCOMPLETE FIX) -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Jabatan</mat-label>
+
+        <input matInput formControlName="jabatan_display" [matAutocomplete]="autoJabatan" />
+
+        <mat-autocomplete #autoJabatan="matAutocomplete" (optionSelected)="selectJabatan($event.option.value)">
+            <mat-option *ngFor="let j of filteredJabatan | async" [value]="j">
+                {{ j.nama_jabatan }}
+            </mat-option>
+        </mat-autocomplete>
+
+        @if(form.get('id_jabatan')?.invalid && form.get('id_jabatan')?.touched){
+        <mat-error>Jabatan wajib dipilih</mat-error>
+        }
+    </mat-form-field>
+
+    <!-- ========================= -->
+    <!-- DEPARTEMEN (AUTOCOMPLETE FIX) -->
+    <!-- ========================= -->
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Departemen</mat-label>
+
+        <input matInput formControlName="departemen_display" [matAutocomplete]="autoDept" />
+
+        <mat-autocomplete #autoDept="matAutocomplete" (optionSelected)="selectDepartemen($event.option.value)">
+            <mat-option *ngFor="let d of filteredDepartemen | async" [value]="d">
+                {{ d.nama_departemen }}
+            </mat-option>
+        </mat-autocomplete>
+
+        @if(form.get('id_departemen')?.invalid && form.get('id_departemen')?.touched){
+        <mat-error>Departemen wajib dipilih</mat-error>
+        }
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<!-- ========================= -->
+<!-- ACTION -->
+<!-- ========================= -->
+<mat-dialog-actions align="end" class="px-6 pb-4 gap-2">
+
+    <button mat-button mat-dialog-close>
+        Batal
+    </button>
+
+    <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid || loading"
+        class="flex items-center gap-2 min-w-[120px] justify-center">
+        @if(loading){
+        <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+        }
+
+        <span>
+            {{ loading ? 'Menyimpan...' : 'Simpan' }}
+        </span>
+    </button>
+
+</mat-dialog-actions>

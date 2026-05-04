@@ -1,0 +1,207 @@
+<div class="p-6 space-y-6">
+
+    <!-- 🔥 Header -->
+    <div>
+        <h1 class="text-2xl font-semibold ">Presensi Karyawan</h1>
+        <p class="text-sm ">Absen masuk & pulang harian</p>
+    </div>
+
+    <!-- 🔥 Card Absen -->
+    <div
+        class="rounded-2xl shadow p-6 flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+
+        <!-- Info -->
+        <div class="text-center md:text-left ">
+            <p class=" text-sm">Hari ini</p>
+            <h2 class="text-xl font-semibold ">
+                {{ today }}
+            </h2>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ currentTime }}
+            </p>
+
+            <p class="text-sm mt-2">
+                Status:
+                <span [ngClass]="{
+            'text-green-600': status === 'Hadir',
+            'text-red-500': status === 'Belum Absen'
+          }" class="font-semibold">
+                    {{ status }}
+                </span>
+            </p>
+        </div>
+
+        <div class="flex gap-4">
+
+            <!-- Izin & Masuk -->
+            <ng-container *ngIf="!sudahMasuk && !izin">
+                <button (click)="izinHariIni()"
+                    class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl shadow">
+                    Izin
+                </button>
+
+                <button (click)="absenMasuk()"
+                    class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl shadow">
+                    Absen Masuk
+                </button>
+            </ng-container>
+
+            <!-- 🔥 FIX DI SINI -->
+            <button *ngIf="sudahMasuk && !sudahPulang && !izin" (click)="absenPulang()"
+                class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl shadow">
+                Absen Pulang
+            </button>
+
+        </div>
+    </div>
+
+    <!-- 🔥 Riwayat Hari Ini -->
+    <div class="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+
+        <h3 class="text-lg font-semibold  mb-4">
+            Riwayat Hari Ini
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div class="p-4 border border-transparent rounded-xl">
+                <p class="text-sm ">Jam Masuk</p>
+                <p class="text-xl font-semibold text-green-600">
+                    {{ jamMasuk || '-' }}
+                </p>
+            </div>
+
+            <div class="p-4 border border-transparent rounded-xl">
+                <p class="text-sm ">Jam Pulang</p>
+                <p class="text-xl font-semibold text-red-500">
+                    {{ jamKeluar || '-' }}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+
+        <!-- KIRI: Dropdown -->
+        <div class="flex items-center gap-4">
+
+            <!-- BULAN -->
+            <div class="flex flex-col">
+                <label class="text-xs mb-1 ">
+                    Bulan
+                </label>
+
+                <select [(ngModel)]="selectedMonth" (change)="onChangeMonthYear()"
+                    class="px-4 py-2 rounded-xl border border-gray-300 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 transition">
+
+                    <option *ngFor="let m of months" [value]="m.value">
+                        {{ m.label }}
+                    </option>
+
+                </select>
+            </div>
+
+            <!-- TAHUN -->
+            <div class="flex flex-col">
+                <label class="text-xs mb-1 ">
+                    Tahun
+                </label>
+
+                <select [(ngModel)]="selectedYear" (change)="onChangeMonthYear()"
+                    class="px-4 py-2 rounded-xl border border-gray-300 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 transition">
+
+                    <option *ngFor="let y of years" [value]="y">
+                        {{ y }}
+                    </option>
+
+                </select>
+            </div>
+
+        </div>
+
+        <!-- KANAN: Display -->
+        <div class="text-right">
+            <p class="text-xs ">Periode Dipilih</p>
+            <h2 class="text-xl font-semibold tracking-wide">
+                {{ currentDate | date:'MMMM yyyy':'':'id-ID' }}
+            </h2>
+        </div>
+
+    </div>
+
+    <mat-card class="cardWithShadow theme-card w-full max-w-none ">
+        <!-- 🔥 Table Riwayat -->
+        <mat-card-content class="border-t border-border bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+            <div class="relative overflow-auto">
+
+                <table mat-table [dataSource]="dataSource" class="min-w-full">
+
+                    <!-- TANGGAL -->
+                    <ng-container matColumnDef="tanggal">
+                        <th mat-header-cell *matHeaderCellDef class="font-semibold text-sm">
+                            Tanggal
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.tanggal }}
+                        </td>
+                    </ng-container>
+
+                    <!-- MASUK -->
+                    <ng-container matColumnDef="masuk">
+                        <th mat-header-cell *matHeaderCellDef class="font-semibold text-sm">
+                            Masuk
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="text-green-600">
+                            {{ element.jamMasuk }}
+                        </td>
+                    </ng-container>
+
+                    <!-- PULANG -->
+                    <ng-container matColumnDef="pulang">
+                        <th mat-header-cell *matHeaderCellDef class="font-semibold text-sm">
+                            Pulang
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="text-red-500">
+                            {{ element.jamKeluar }}
+                        </td>
+                    </ng-container>
+
+                    <!-- STATUS -->
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef class="font-semibold text-sm text-center">
+                            Status
+                        </th>
+
+                        <td mat-cell *matCellDef="let element" class="text-center whitespace-nowrap">
+
+                            @if(element.status?.toLowerCase() === 'hadir') {
+                            <span class="bg-green-100 text-green-700 rounded font-semibold px-3 py-1 text-xs">
+                                Hadir
+                            </span>
+                            } @else if(element.status?.toLowerCase() === 'izin') {
+                            <span class="bg-yellow-100 text-yellow-700 rounded font-semibold px-3 py-1 text-xs">
+                                Izin
+                            </span>
+                            } @else {
+                            <span class="bg-red-100 text-red-700 rounded font-semibold px-3 py-1 text-xs">
+                                Belum Absen
+                            </span>
+                            }
+
+                        </td>
+                    </ng-container>
+
+                    <!-- ROW -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                </table>
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>
