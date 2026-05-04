@@ -1,0 +1,112 @@
+<div class="p-6 space-y-6">
+  <!-- 🔥 HEADER -->
+  <div class="flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Manajemen Cuti</h1>
+  </div>
+
+  <!-- 🔥 SUMMARY -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="p-4 rounded-2xl shadow-sm border border-gray-200/10">
+      <p class="text-sm">Total Cuti</p>
+      <h2 class="text-2xl font-bold">12 Hari</h2>
+    </div>
+
+    <div class="p-4 rounded-2xl shadow-sm border border-gray-200/10">
+      <p class="text-sm">Terpakai</p>
+      <h2 class="text-2xl font-bold text-red-500">5 Hari</h2>
+    </div>
+
+    <div class="p-4 rounded-2xl shadow-sm border border-gray-200/10">
+      <p class="text-sm">Sisa Cuti</p>
+      <h2 class="text-2xl font-bold text-green-500">7 Hari</h2>
+    </div>
+  </div>
+
+  <!-- 🔥 FORM CUTI -->
+  <!-- 🔥 FORM CUTI -->
+  <div class="p-6 rounded-2xl shadow-sm border border-gray-200/10">
+    <h2 class="text-lg font-semibold mb-4">Ajukan Cuti</h2>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label class="text-sm text-gray-600 dark:text-gray-600"
+          >Tanggal Mulai</label
+        >
+        <input
+          type="date"
+          class="w-full mt-1 px-4 py-2 rounded-xl border border-gray-200/10 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-100 cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label class="text-sm text-gray-600 dark:text-gray-600"
+          >Tanggal Selesai</label
+        >
+        <input
+          type="date"
+          class="w-full mt-1 px-4 py-2 rounded-xl border border-gray-200/10 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-100 cursor-pointer"
+        />
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="text-sm text-gray-600 dark:text-gray-600">Alasan</label>
+        <textarea
+          rows="3"
+          class="w-full mt-1 px-4 py-2 rounded-xl shadow-sm border border-gray-200/10 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:lue-100"
+        ></textarea>
+      </div>
+    </div>
+
+    <button
+      class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer"
+    >
+      Ajukan Cuti
+    </button>
+  </div>
+
+  <!-- 🔥 TABEL RIWAYAT -->
+  <div class="p-6 rounded-2xl shadow-sm border border-gray-200/10">
+    <h2 class="text-lg font-semibold mb-4">Riwayat Cuti</h2>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left  dark:border-gray-700">
+            <th class="py-2">Tanggal</th>
+            <th>Durasi</th>
+            <th>Alasan</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class=" dark:border-gray-700">
+            <td class="py-2">10 - 12 Jan 2026</td>
+            <td>3 Hari</td>
+            <td>Liburan</td>
+            <td>
+              <span
+                class="px-3 py-1 text-xs bg-green-100 text-green-600 rounded-full"
+              >
+                Disetujui
+              </span>
+            </td>
+          </tr>
+
+          <tr class=" dark:border-gray-700">
+            <td class="py-2">5 Feb 2026</td>
+            <td>1 Hari</td>
+            <td>Sakit</td>
+            <td>
+              <span
+                class="px-3 py-1 text-xs bg-yellow-100 text-yellow-600 rounded-full"
+              >
+                Pending
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

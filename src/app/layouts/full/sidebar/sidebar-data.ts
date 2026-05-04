@@ -18,6 +18,11 @@ export const navItems: NavItem[] = [
     iconName: 'solar:archive-minimalistic-line-duotone',
     route: '/presensi',
   },
+    {
+    displayName: 'Cuti',
+    iconName: 'solar:bookmark-square-minimalistic-line-duotone',
+    route: '/cuti',
+  },
   // {
   //   displayName: 'Badge',
   //   iconName: 'solar:archive-minimalistic-line-duotone',

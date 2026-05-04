@@ -8,7 +8,7 @@
 
     <!-- 🔥 Card Absen -->
     <div
-        class="rounded-2xl shadow p-6 flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+        class="rounded-2xl shadow p-6 flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/10">
 
         <!-- Info -->
         <div class="text-center md:text-left ">
@@ -57,7 +57,7 @@
     </div>
 
     <!-- 🔥 Riwayat Hari Ini -->
-    <div class="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+    <div class="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/10">
 
         <h3 class="text-lg font-semibold  mb-4">
             Riwayat Hari Ini
@@ -83,19 +83,19 @@
 
     </div>
 
-    <div class="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+    <div class="flex items-center justify-between mb-6 bg-white p-4 rounded-2xl shadow-sm border border-gray-200/10">
 
         <!-- KIRI: Dropdown -->
         <div class="flex items-center gap-4">
 
             <!-- BULAN -->
-            <div class="flex flex-col">
+            <div class="flex flex-col ">
                 <label class="text-xs mb-1 ">
                     Bulan
                 </label>
 
                 <select [(ngModel)]="selectedMonth" (change)="onChangeMonthYear()"
-                    class="px-4 py-2 rounded-xl border border-gray-300 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 transition">
+                    class="px-4 py-2 rounded-xl border border-gray-200/10 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 transition cursor-pointer">
 
                     <option *ngFor="let m of months" [value]="m.value">
                         {{ m.label }}
@@ -111,7 +111,7 @@
                 </label>
 
                 <select [(ngModel)]="selectedYear" (change)="onChangeMonthYear()"
-                    class="px-4 py-2 rounded-xl border border-gray-300 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 transition">
+                    class="px-4 py-2 rounded-xl border border-gray-200/10 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-gray-400 transition cursor-pointer">
 
                     <option *ngFor="let y of years" [value]="y">
                         {{ y }}
@@ -134,7 +134,7 @@
 
     <mat-card class="cardWithShadow theme-card w-full max-w-none ">
         <!-- 🔥 Table Riwayat -->
-        <mat-card-content class="border-t border-border bg-white p-4 rounded-2xl shadow-sm border border-gray-200/40">
+        <mat-card-content class="border-t border-border bg-white p-4 rounded-2xl shadow-sm border border-gray-200/10">
             <div class="relative overflow-auto">
 
                 <table mat-table [dataSource]="dataSource" class="min-w-full">

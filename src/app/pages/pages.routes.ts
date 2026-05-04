@@ -7,10 +7,7 @@ export const PagesRoutes: Routes = [
     component: StarterComponent,
     data: {
       title: 'Starter',
-      urls: [
-        { title: 'Dashboard', url: '/dashboard' },
-        { title: 'Starter' },
-      ],
+      urls: [{ title: 'Dashboard', url: '/dashboard' }, { title: 'Starter' }],
     },
   },
   // 🔥 KARYAWAN
@@ -20,15 +17,24 @@ export const PagesRoutes: Routes = [
       {
         path: 'view/:id',
         loadComponent: () =>
-          import('../components/view-karyawan/view-karyawan.component')
-            .then(m => m.ViewKaryawanComponent)
+          import('../components/view-karyawan/view-karyawan.component').then(
+            (m) => m.ViewKaryawanComponent,
+          ),
       },
-       {
+      {
         path: 'presensi',
         loadComponent: () =>
-          import('../components/presensi/presensi.component')
-            .then(m => m.PresensiComponent)
-      }
-    ]
-  }
+          import('../components/presensi/presensi.component').then(
+            (m) => m.PresensiComponent,
+          ),
+      },
+      {
+        path: 'cuti',
+        loadComponent: () =>
+          import('../components/cuti/cuti.component').then(
+            (m) => m.CutiComponent,
+          ),
+      },
+    ],
+  },
 ];
