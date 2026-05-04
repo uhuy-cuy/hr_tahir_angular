@@ -51,5 +51,3 @@ ng serve
 Buka browser:
 
 http://localhost:4200/
-
-👉 Aplikasi akan otomatis reload saat ada perubahan kode
