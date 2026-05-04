@@ -1,52 +1,55 @@
-TailwindAdmin-Angular
-TailwindAdmin-Angular adalah template dashboard admin modern yang dibangun menggunakan Angular 17+ dan Tailwind CSS. Proyek ini dirancang untuk memberikan antarmuka pengguna yang responsif, ringan, dan mudah dikustomisasi bagi para pengembang web.
+🚀 TailwindAdmin Angular
 
+TailwindAdmin-Angular adalah template dashboard admin modern berbasis Angular 17+ dan Tailwind CSS, dirancang untuk membangun aplikasi web yang responsif, ringan, dan scalable dengan tampilan UI yang clean dan modern.
+
+✨ Preview
+
+Dashboard ini cocok digunakan untuk:
+
+Sistem internal perusahaan
+Admin panel
+Monitoring data
+Aplikasi manajemen
 🚀 Fitur Utama
-Modern UI/UX: Desain bersih dan minimalis menggunakan utilitas Tailwind CSS.
-
-Fully Responsive: Optimal untuk tampilan desktop, tablet, maupun perangkat seluler.
-
-Modular Architecture: Struktur komponen Angular yang rapi untuk skalabilitas tinggi.
-
-Light/Dark Mode: Mendukung perpindahan tema visual dengan mudah.
-
-Ready-to-use Components: Berbagai komponen UI seperti Chart, Tabel, Form, dan Menu navigasi.
-
+🎨 Modern UI/UX
+Desain minimalis dan clean menggunakan Tailwind CSS
+📱 Fully Responsive
+Optimal di desktop, tablet, dan mobile
+🧩 Modular Architecture
+Struktur Angular yang rapi dan scalable
+🌙 Light & Dark Mode
+Mendukung perubahan tema dengan mudah
+📊 Ready-to-use Components
+Tabel
+Chart
+Form
+Navigation Menu
 🛠️ Teknologi yang Digunakan
-Angular: Framework utama untuk logika frontend.
+Teknologi	Keterangan
+Angular 17+	Framework utama frontend
+Tailwind CSS	Styling modern berbasis utility
+TypeScript	Strong typing & maintainable code
+Lucide Icons / FontAwesome	Ikon ringan & estetik
+🏁 Getting Started
+📌 Prasyarat
 
-Tailwind CSS: Framework CSS untuk styling cepat dan modern.
+Pastikan sudah terinstall:
 
-TypeScript: Menjamin keamanan tipe data dan pengembangan yang lebih terstruktur.
-
-Lucide Icons / FontAwesome: Paket ikon yang ringan dan estetik.
-
-🏁 Memulai (Getting Started)
-Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal Anda:
-
-Prasyarat
-Pastikan Anda sudah menginstal:
-
-Node.js (Versi LTS direkomendasikan)
-
-Angular CLI (npm install -g @angular/cli)
-
-Instalasi
-Clone repositori ini:
-
-Bash
+Node.js (disarankan versi LTS)
+Angular CLI
+npm install -g @angular/cli
+📥 Instalasi
+1. Clone Repository
 git clone https://github.com/uhuy-cuy/hr_tahir_angular.git
-Masuk ke direktori proyek:
-
-Bash
+2. Masuk ke Folder Project
 cd tailwind-admin-angular-free/package
-Instal semua dependensi:
-
-Bash
+3. Install Dependencies
 npm install
-Menjalankan Server Pengembangan
-Jalankan perintah berikut untuk melihat hasil proyek di browser:
-
-Bash
+▶️ Menjalankan Project
 ng serve
-Buka http://localhost:4200/ di peramban Anda. Aplikasi akan otomatis memuat ulang jika Anda membuat perubahan pada kode.
+
+Buka browser:
+
+http://localhost:4200/
+
+👉 Aplikasi akan otomatis reload saat ada perubahan kode
