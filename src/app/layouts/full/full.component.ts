@@ -279,8 +279,8 @@ export class FullComponent implements OnInit {
   }
 
 }
-console.log('token:', localStorage.getItem('token'));
-console.log('name:', localStorage.getItem('name'));
-console.log('role:', localStorage.getItem('role'));
-console.log('id_karyawan:', localStorage.getItem('id_karyawan'));
+// console.log('token:', localStorage.getItem('token'));
+// console.log('name:', localStorage.getItem('name'));
+// console.log('role:', localStorage.getItem('role'));
+// console.log('id_karyawan:', localStorage.getItem('id_karyawan'));
 

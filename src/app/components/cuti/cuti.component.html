@@ -8,59 +8,69 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <div class="p-4 rounded-2xl shadow-sm border border-gray-200/10">
       <p class="text-sm">Total Cuti</p>
-      <h2 class="text-2xl font-bold">12 Hari</h2>
+      <h2 class="text-2xl font-bold">{{ totalCuti }} Hari</h2>
     </div>
 
     <div class="p-4 rounded-2xl shadow-sm border border-gray-200/10">
       <p class="text-sm">Terpakai</p>
-      <h2 class="text-2xl font-bold text-red-500">5 Hari</h2>
+      <h2 class="text-2xl font-bold text-red-500">{{ terpakai }} Hari</h2>
     </div>
 
     <div class="p-4 rounded-2xl shadow-sm border border-gray-200/10">
       <p class="text-sm">Sisa Cuti</p>
-      <h2 class="text-2xl font-bold text-green-500">7 Hari</h2>
+      <h2 class="text-2xl font-bold text-green-500">{{ sisa }} Hari</h2>
     </div>
   </div>
 
-  <!-- 🔥 FORM CUTI -->
   <!-- 🔥 FORM CUTI -->
   <div class="p-6 rounded-2xl shadow-sm border border-gray-200/10">
     <h2 class="text-lg font-semibold mb-4">Ajukan Cuti</h2>
 
     <div class="grid md:grid-cols-2 gap-4">
+      <!-- Tanggal Range -->
       <div>
-        <label class="text-sm text-gray-600 dark:text-gray-600"
-          >Tanggal Mulai</label
-        >
+        <label class="text-sm text-gray-600">Tanggal</label>
+
         <input
-          type="date"
-          class="w-full mt-1 px-4 py-2 rounded-xl border border-gray-200/10 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-100 cursor-pointer"
+          #dateRangeInput
+          type="text"
+          placeholder="Pilih rentang tanggal"
+          class="w-full mt-1 px-4 py-2 rounded-xl border border-gray-200/10 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white hover:border-blue-700 focus:ring-2 focus:ring-blue-100 cursor-pointer"
         />
       </div>
 
+      <!-- Jenis Cuti -->
       <div>
-        <label class="text-sm text-gray-600 dark:text-gray-600"
-          >Tanggal Selesai</label
+        <label class="text-sm text-gray-600">Jenis Cuti</label>
+
+        <select
+          [(ngModel)]="jenis_cuti"
+          class="w-full mt-1 px-4 py-2 rounded-xl border border-gray-200/10 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white cursor-pointer"
         >
-        <input
-          type="date"
-          class="w-full mt-1 px-4 py-2 rounded-xl border border-gray-200/10 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-100 cursor-pointer"
-        />
+          <option value="">Pilih Jenis</option>
+          <option value="tahunan">Tahunan</option>
+          <option value="sakit">Sakit</option>
+          <option value="khusus">Khusus</option>
+        </select>
       </div>
 
+      <!-- Alasan -->
       <div class="md:col-span-2">
-        <label class="text-sm text-gray-600 dark:text-gray-600">Alasan</label>
+        <label class="text-sm text-gray-600">Alasan</label>
+
         <textarea
+          [(ngModel)]="alasan"
           rows="3"
-          class="w-full mt-1 px-4 py-2 rounded-xl shadow-sm border border-gray-200/10 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:lue-100"
+          class="w-full mt-1 px-4 py-2 rounded-xl shadow-sm border border-gray-200/10 focus:outline-none focus:ring-2 focus:ring-blue-100"
         ></textarea>
       </div>
     </div>
 
     <button
-      class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer"
+      (click)="ajukanCuti()"
+      class="mt-2 w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 text-white font-semibold rounded-xl shadow-md hover:shadow-xl transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
     >
-      Ajukan Cuti
+      <span>Ajukan Cuti</span>
     </button>
   </div>
 
@@ -71,38 +81,61 @@
     <div class="overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
-          <tr class="text-left  dark:border-gray-700">
+          <tr class="text-left dark:border-gray-700">
             <th class="py-2">Tanggal</th>
             <th>Durasi</th>
             <th>Alasan</th>
             <th>Status</th>
+            <th>Aksi</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr class=" dark:border-gray-700">
-            <td class="py-2">10 - 12 Jan 2026</td>
-            <td>3 Hari</td>
-            <td>Liburan</td>
+          <tr *ngFor="let item of cutiList">
+            <td class="py-2">
+              {{ formatTanggal(item.tanggal_mulai) }} s.d.
+              {{ formatTanggal(item.tanggal_selesai) }}
+            </td>
+            <td>
+              {{ getDurasiCuti(item.tanggal_mulai, item.tanggal_selesai) }} Hari
+            </td>
+            <td>{{ item.alasan }}</td>
             <td>
               <span
-                class="px-3 py-1 text-xs bg-green-100 text-green-600 rounded-full"
+                class="px-3 py-1 text-xs rounded"
+                [ngClass]="{
+                  'bg-green-100 text-green-600': item.status === 'disetujui',
+                  'bg-yellow-100 text-yellow-600': item.status === 'pending',
+                  'bg-red-100 text-red-600': item.status === 'ditolak',
+                }"
               >
-                Disetujui
+                {{ item.status }}
               </span>
             </td>
-          </tr>
-
-          <tr class=" dark:border-gray-700">
-            <td class="py-2">5 Feb 2026</td>
-            <td>1 Hari</td>
-            <td>Sakit</td>
             <td>
-              <span
-                class="px-3 py-1 text-xs bg-yellow-100 text-yellow-600 rounded-full"
+              <button
+                *ngIf="item.status !== 'disetujui'"
+                class="text-red-500 hover:text-red-700 transition cursor-pointer"
+                (click)="hapusCuti(item.id_cuti)"
+                title="Hapus"
               >
-                Pending
-              </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6l-2 14H7L5 6"></path>
+                  <path d="M10 11v6"></path>
+                  <path d="M14 11v6"></path>
+                  <path d="M9 6V4h6v2"></path>
+                </svg>
+              </button>
             </td>
           </tr>
         </tbody>

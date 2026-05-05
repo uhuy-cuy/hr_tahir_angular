@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class CoreService {
-
   // ================== API =========================
 
   private optionsSignal = signal<AppSettings>(defaults);
@@ -18,7 +17,10 @@ export class CoreService {
 
   private apiUrl = 'http://127.0.0.1:8000/api';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {
     this.notify$.next(this.optionsSignal());
   }
 
@@ -41,7 +43,6 @@ export class CoreService {
       }
 
       return false;
-
     } catch (e) {
       this.forceLogout('Token Error', 'Token tidak valid');
       return true;
@@ -59,7 +60,7 @@ export class CoreService {
 
       // 🔥 penting: custom z-index
       customClass: {
-        container: 'swal-top'
+        container: 'swal-top',
       },
 
       didOpen: () => {
@@ -67,12 +68,11 @@ export class CoreService {
         if (swalContainer) {
           swalContainer.style.zIndex = '9999999';
         }
-      }
+      },
     }).then(() => {
       this.router.navigate(['/authentication/login']);
     });
   }
-
 
   // ================= Realtime KETIKA EDIT PADA JUMLAH Employees =================
 
@@ -93,7 +93,7 @@ export class CoreService {
     const token = localStorage.getItem('token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     return this.http.get(`${this.apiUrl}/karyawans/count`, { headers });
@@ -103,7 +103,7 @@ export class CoreService {
     const token = localStorage.getItem('token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     return this.http.get(`${this.apiUrl}/karyawans`, { headers });
@@ -112,22 +112,18 @@ export class CoreService {
   updateKaryawan(id: number, data: any): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.put(
-      `${this.apiUrl}/karyawans/${id}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    return this.http.put(`${this.apiUrl}/karyawans/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
   // ================= GET Jabatan =================
   getJabatan(): Observable<any> {
     const token = localStorage.getItem('token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     return this.http.get(`${this.apiUrl}/jabatans`, { headers });
@@ -137,7 +133,7 @@ export class CoreService {
     const token = localStorage.getItem('token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     return this.http.get(`${this.apiUrl}/departemens`, { headers });
@@ -146,22 +142,18 @@ export class CoreService {
   addKaryawan(data: any): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.post(
-      `${this.apiUrl}/karyawans`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    return this.http.post(`${this.apiUrl}/karyawans`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
   // ================= GET KARYAWAN =================
   getKaryawanById(id: string) {
     const token = localStorage.getItem('token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     return this.http.get<any>(`${this.apiUrl}/karyawans/${id}`, { headers });
@@ -172,7 +164,7 @@ export class CoreService {
     const token = localStorage.getItem('token');
 
     const headers = {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     };
 
     return this.http.delete<any>(`${this.apiUrl}/karyawans/${id}`, { headers });
@@ -182,62 +174,74 @@ export class CoreService {
   absenMasuk(data: any): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.post(
-      `${this.apiUrl}/absensis`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    return this.http.post(`${this.apiUrl}/absensis`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
   //  ================DATA ABSEN HARI INI===================
   getAbsensiByUser(id: any): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.get(
-      `${this.apiUrl}/absensis/user/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    return this.http.get(`${this.apiUrl}/absensis/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
   //  ================ABSEN KELAUR===================
-    updateAbsen(id: any, data: any): Observable<any> {
+  updateAbsen(id: any, data: any): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.put(
-      `${this.apiUrl}/absensis/${id}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    return this.http.put(`${this.apiUrl}/absensis/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
-   //  ================DATA ABSEN 1 bulan===================
+  //  ================DATA ABSEN 1 bulan===================
   getAbsensiAllByUser(id: any): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.get(
-      `${this.apiUrl}/absensis/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    return this.http.get(`${this.apiUrl}/absensis/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  // ==================DATA CUTI KARYAWAN======================
+  getCutiByKaryawan(id_karyawan: any): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    return this.http.get(`${this.apiUrl}/cutis/${id_karyawan}`, { headers });
   }
 
+  // ================= Store Cuti =================
+  addCuti(data: any): Observable<any> {
+    const token = localStorage.getItem('token');
 
+    return this.http.post(`${this.apiUrl}/cutis`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 
+  // ================= Delete Cuti =================
+  deleteCuti(id: string) {
+    const token = localStorage.getItem('token');
 
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
 
-
+    return this.http.delete<any>(`${this.apiUrl}/cutis/${id}`, { headers });
+  }
 
   // Observable for notification updates
   get notify(): Observable<Record<string, any>> {
